@@ -13,8 +13,7 @@ def index():
     # could just sort in reverse alphabetical order but this allows future additions
     order = ["Not Started", "Completed"]
     sorted_items = sorted(items, key=lambda d: order.index(d.get("status")))
-    item_list = [item.get('title') for item in sorted_items]
-    return render_template("index.html", todo_items=item_list)
+    return render_template("index.html", todo_items=sorted_items)
 
 
 @app.route('/add_new_item', methods=['POST'])
