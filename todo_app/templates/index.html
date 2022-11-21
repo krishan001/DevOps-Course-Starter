@@ -20,9 +20,35 @@
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
-        {% for item in todo_items %}
-          <li> {{ item.get('title') }}         Status: {{ item.get('status')}}</li>
-        {% endfor %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="task-id">#</th>
+              <th class="task">Task Name</th>
+              <th class="status">Status</th>
+              <th class="completed">Completed?</th>
+
+            </tr>
+          </thead>
+          {% for item in todo_items %}
+            <tbody>
+              <td>{{ item.get('id') }}</td>
+              <td>{{ item.get('title') }}</td>
+              <td>{{ item.get('status') }}</td>
+
+
+              {% if item.get('status') == "Not Started" %}
+              <form action="{{ url_for('completed', id=item.get('id')) }}">
+                <td><input class="btn btn-outline-secondary btn-sm state" type="submit" value="Mark as Completed"></td>
+              </form>
+              {%endif%}
+
+            {% if item.get('status') == "Completed" %}
+            <td>Completed</td>
+            {%endif%}
+
+            </tbody>
+          {% endfor %}
       </ul>
     </div>
   </div>

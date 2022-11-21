@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect
-from todo_app.data.session_items import get_items, add_item
+from flask import Flask, render_template, request, redirect, url_for
+from todo_app.data.session_items import get_items, add_item, get_item, save_item
 from todo_app.flask_config import Config
 
 app = Flask(__name__)
@@ -20,4 +20,12 @@ def index():
 def add_new_item():
     item_title = request.form.get('new_item')
     add_item(item_title)
-    return redirect('/')
+    return redirect(url_for('index'))
+
+
+@app.route('/completed/<id>')
+def completed(id):
+    item = get_item(id)
+    item.update({'status': "Completed"})
+    save_item(item)
+    return redirect(url_for('index'))
