@@ -67,3 +67,19 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+
+def remove_item(id):
+    """
+    Removes a saved item from an id.
+
+    Args:
+        id: The ID of the item.
+
+    Returns:
+        item: The saved item, or None if no items match the specified ID.
+    """
+    item = get_item(id)
+    items = get_items()
+    items.remove(item)
+    session['items'] = items

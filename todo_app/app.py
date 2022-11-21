@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from todo_app.data.session_items import get_items, add_item, get_item, save_item
+from todo_app.data.session_items import get_items, add_item, get_item, save_item, remove_item
 from todo_app.flask_config import Config
 
 app = Flask(__name__)
@@ -28,4 +28,10 @@ def completed(id):
     item = get_item(id)
     item.update({'status': "Completed"})
     save_item(item)
+    return redirect(url_for('index'))
+
+
+@app.route('/remove/<id>')
+def remove(id):
+    remove_item(id)
     return redirect(url_for('index'))

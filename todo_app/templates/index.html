@@ -27,6 +27,8 @@
               <th class="task">Task Name</th>
               <th class="status">Status</th>
               <th class="completed">Completed?</th>
+              <th class="remove">Remove</th>
+
 
             </tr>
           </thead>
@@ -46,6 +48,10 @@
             {% if item.get('status') == "Completed" %}
             <td>Completed</td>
             {%endif%}
+
+            <form action="{{ url_for('remove', id=item.get('id')) }}">
+              <td><input class="btn btn-outline-secondary btn-sm state" type="submit" value="Remove" ></td>
+            </form>
 
             </tbody>
           {% endfor %}
