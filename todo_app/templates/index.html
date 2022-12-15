@@ -7,11 +7,54 @@
     <p class="lead">Just another to-do app.</p>
   </div>
 
+  <!-- Form -->
+  <h2>New item</h2>
+  <form action="{{ url_for('add_new_item') }}" method="post">
+    <label for="item">Enter your new item: </label>
+    <input type="text" name="new_item" id="item" required>
+    <input type="submit" value="Add new item">
+  </form>
+
+  <!-- Display list -->
   <div class="row">
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
-        <!-- List the todo items here -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="task-id">#</th>
+              <th class="task">Task Name</th>
+              <th class="status">Status</th>
+              <th class="completed">Completed?</th>
+              <th class="remove">Remove</th>
+
+
+            </tr>
+          </thead>
+          {% for item in todo_items %}
+            <tbody>
+              <td>{{ item.get('id') }}</td>
+              <td>{{ item.get('title') }}</td>
+              <td>{{ item.get('status') }}</td>
+
+
+              {% if item.get('status') == "Not Started" %}
+              <form action="{{ url_for('completed', id=item.get('id')) }}">
+                <td><input class="btn btn-outline-secondary btn-sm state" type="submit" value="Mark as Completed"></td>
+              </form>
+              {%endif%}
+
+            {% if item.get('status') == "Completed" %}
+            <td>Completed</td>
+            {%endif%}
+
+            <form action="{{ url_for('remove', id=item.get('id')) }}">
+              <td><input class="btn btn-outline-secondary btn-sm state" type="submit" value="Remove" ></td>
+            </form>
+
+            </tbody>
+          {% endfor %}
       </ul>
     </div>
   </div>

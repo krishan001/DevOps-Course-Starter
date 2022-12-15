@@ -11,6 +11,12 @@ python-dotenv = "^0.14.0"
 
 [tool.poetry.dev-dependencies]
 
+[tool.poetry.group.dev.dependencies]
+pycodestyle = "^2.9.1"
+flake8 = "^5.0.4"
+mypy = "^0.991"
+autopep8 = "^2.0.0"
+
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
